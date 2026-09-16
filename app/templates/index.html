@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Bengaluru Property Price Predictor</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+
+        <div>
+            <h1>🏠 Bengaluru Property Predictor</h1>
+
+            <p>
+                AI-powered property valuation using
+                location and nearby amenities
+            </p>
+        </div>
+
+        <div class="badge">
+            XGBoost
+        </div>
+
+    </header>
+
+
+    <main class="dashboard">
+
+
+        <!-- LEFT PANEL -->
+
+        <section class="card input-card">
+
+            <h2>Property Details</h2>
+
+            <label>Location</label>
+
+            <select id="location">
+
+                <option value="">
+                    Select Bengaluru locality
+                </option>
+
+                {% for location in locations %}
+
+                <option value="{{ location }}">
+                    {{ location }}
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+
+            <label>BHK</label>
+
+            <input
+                type="number"
+                id="bhk"
+                value="2"
+                min="1"
+                max="10"
+            >
+
+
+            <label>Total Area (sq ft)</label>
+
+            <input
+                type="number"
+                id="total_sqft"
+                value="1200"
+                min="300"
+            >
+
+
+            <label>Bathrooms</label>
+
+            <input
+                type="number"
+                id="bath"
+                value="2"
+                min="1"
+                max="10"
+            >
+
+
+            <label>Balcony</label>
+
+            <input
+                type="number"
+                id="balcony"
+                value="1"
+                min="0"
+                max="3"
+            >
+
+
+            <button onclick="predictPrice()">
+
+                Predict Property Price
+
+            </button>
+
+
+            <p class="hint">
+
+                📍 Choose a supported Bengaluru locality.
+                The map marker will move to its validated
+                coordinates.
+
+            </p>
+
+        </section>
+
+
+        <!-- MAP -->
+
+        <section class="card map-card">
+
+            <h2>📍 Bengaluru Location</h2>
+
+            <div id="map"></div>
+
+            <div class="coordinates">
+
+                Latitude:
+                <span id="lat">--</span>
+
+                &nbsp;&nbsp;
+
+                Longitude:
+                <span id="lon">--</span>
+
+            </div>
+
+        </section>
+
+
+        <!-- RESULT -->
+
+        <section class="card result-card">
+
+            <h2>Prediction Result</h2>
+
+            <div id="result">
+
+                <div class="placeholder">
+
+                    <div class="big-icon">
+                        🏠
+                    </div>
+
+                    <p>
+                        Enter property details and
+                        click predict.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
